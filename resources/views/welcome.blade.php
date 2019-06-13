@@ -11,7 +11,7 @@
 </head>
 <body>
 <div id="app">
-    <example-component></example-component>
+    <tweet-feed></tweet-feed>
 </div>
 </body>
 </html>
