@@ -11,7 +11,7 @@
 </head>
 <body>
 <div id="app">
-    <tweet-feed></tweet-feed>
+    <twitter-app></twitter-app>
 </div>
 </body>
 </html>
