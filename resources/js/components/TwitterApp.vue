@@ -14,6 +14,6 @@
         components: {TweetFeed, TweetInputBox}
     })
     export default class TwitterApp extends Vue {
-        protected message: string = '';
+
     }
 </script>
