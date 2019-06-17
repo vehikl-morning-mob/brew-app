@@ -1,5 +1,5 @@
 import TweetFeed from "../TweetFeed.vue";
-import {mount, Wrapper, WrapperArray} from "@vue/test-utils";
+import {mount, Wrapper} from "@vue/test-utils";
 import TweetCard from "../TweetCard.vue";
 
 describe('TweetFeed - Unit', () => {
