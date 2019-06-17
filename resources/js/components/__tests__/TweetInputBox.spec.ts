@@ -23,4 +23,13 @@ describe('TweetInputBox', () => {
 
         expect(wrapper.emitted('new-tweet')[0][0]).toBe('Hi');
     });
+
+    it('clears message after submission', () => {
+        const wrapper: Wrapper<TweetInputBox> = mount(TweetInputBox);
+        wrapper.find('.input-box').setValue('Hi');
+        wrapper.find('.submit-button').trigger('click');
+
+        const inputBox: HTMLTextAreaElement = wrapper.find('.input-box').element as HTMLTextAreaElement;
+        expect(inputBox.value).toBe('');
+    });
 });

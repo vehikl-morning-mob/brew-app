@@ -5,7 +5,7 @@
         </textarea>
 
         <button type="submit"
-                @click="$emit('new-tweet', message)"
+                @click="submitTweet"
                 class="submit-button">
             Send tweet
         </button>
@@ -18,5 +18,10 @@
     @Component
     export default class TweetInputBox extends Vue {
         protected message: string = '';
+
+        protected submitTweet(): void {
+            this.$emit('new-tweet', this.message);
+            this.message = '';
+        }
     }
 </script>
