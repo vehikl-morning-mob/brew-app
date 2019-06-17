@@ -1,14 +1,22 @@
 <template>
-    <div class="tweet-input-box">
-        <textarea class="input-box">
+    <form class="tweet-input-box" @submit.prevent>
+        <textarea class="input-box"
+                  v-model="message">
         </textarea>
-    </div>
+
+        <button type="submit"
+                @click="$emit('new-tweet', message)"
+                class="submit-button">
+            Send tweet
+        </button>
+    </form>
 </template>
 
 <script lang="ts">
-    import {Prop, Component, Vue} from 'vue-property-decorator';
+    import {Component, Vue} from 'vue-property-decorator';
 
     @Component
     export default class TweetInputBox extends Vue {
+        protected message: string = '';
     }
 </script>
