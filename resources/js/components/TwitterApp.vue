@@ -17,7 +17,7 @@
         protected messages: string[] = [];
 
         protected onNewTweetCreated(message: string): void {
-            this.messages.push(message);
+            this.messages.unshift(message);
         }
     }
 </script>

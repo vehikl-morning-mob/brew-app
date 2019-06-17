@@ -25,5 +25,15 @@ describe('Twitter App', () => {
 
         expect(wrapper.find(TweetCard).text()).toContain(givenText);
     });
+
+    it('Renders newer tweets first', () => {
+        wrapper.find('.input-box').setValue('first message');
+        wrapper.find('.submit-button').trigger('click');
+
+        wrapper.find('.input-box').setValue('second message');
+        wrapper.find('.submit-button').trigger('click');
+
+        expect(wrapper.findAll(TweetCard).at(0).text()).toContain('second message');
+    });
 });
 
