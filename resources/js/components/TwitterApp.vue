@@ -1,7 +1,7 @@
 <template>
     <div class="twitter-app">
-        <tweet-input-box></tweet-input-box>
-        <tweet-feed></tweet-feed>
+        <tweet-input-box @new-tweet="onNewTweetCreated"/>
+        <tweet-feed :messages="messages"/>
     </div>
 </template>
 
@@ -14,6 +14,10 @@
         components: {TweetFeed, TweetInputBox}
     })
     export default class TwitterApp extends Vue {
+        protected messages: string[] = [];
 
+        protected onNewTweetCreated(message: string): void {
+            this.messages.push(message);
+        }
     }
 </script>
