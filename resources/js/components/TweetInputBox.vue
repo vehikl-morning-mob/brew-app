@@ -38,14 +38,14 @@
 
     .input-box {
         background-color: $lightBrown;
-        border: none;
+        border: 2px solid $lightBrownBorder;
         padding: 0.875rem;
         border-radius: 1.25rem;
-        flex: 1;
         resize: none;
-        height: 100%;
+        height: 8rem;
         outline: transparent;
         color: $tweetGrey;
+        font-family: 'Roboto', sans-serif;
     }
 
     .submit-button {
