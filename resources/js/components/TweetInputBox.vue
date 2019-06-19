@@ -25,3 +25,11 @@
         }
     }
 </script>
+
+<style lang="scss">
+    @import '../../sass/variables';
+
+    .tweet-input-box {
+        background-color: $pooBrown;
+    }
+</style>

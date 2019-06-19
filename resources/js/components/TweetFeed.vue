@@ -17,5 +17,4 @@
         @Prop() protected messages!: string[];
 
     }
-
 </script>
