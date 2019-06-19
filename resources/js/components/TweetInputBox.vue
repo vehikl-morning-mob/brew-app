@@ -7,7 +7,7 @@
         <button type="submit"
                 @click="submitTweet"
                 class="submit-button">
-            Send tweet
+            Brew
         </button>
     </form>
 </template>
@@ -46,6 +46,19 @@
         height: 100%;
         outline: transparent;
         color: $tweetGrey;
+    }
+
+    .submit-button {
+        border-radius: 1rem;
+        background-color: $green;
+        color: $pooBrown;
+        height: 2rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        line-height: 1;
+        border: none;
+        margin-top: 0.5rem;
+        letter-spacing: 0.1rem;
     }
 
 </style>
