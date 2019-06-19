@@ -30,7 +30,7 @@
     @import '../../sass/variables';
 
     .tweet-input-box {
-        background-color: $pooBrown;
+        background-color: $coffeeBrown;
         display: flex;
         flex-direction: column;
         padding: 1rem;
@@ -51,7 +51,7 @@
     .submit-button {
         border-radius: 1rem;
         background-color: $green;
-        color: $pooBrown;
+        color: $coffeeBrown;
         height: 2rem;
         text-transform: uppercase;
         font-weight: bold;
