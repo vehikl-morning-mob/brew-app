@@ -30,10 +30,8 @@
     @import '../../sass/variables';
 
     .tweet-input-box {
-        background-color: $coffeeBrown;
         display: flex;
         flex-direction: column;
-        padding: 1rem;
     }
 
     .input-box {

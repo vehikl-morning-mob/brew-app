@@ -14,10 +14,10 @@
 </script>
 
 <style scope lang="scss">
+    @import '../../sass/variables';
 
     .tweet-card {
-        background-color: blue;
-        --my-color: #000;
+        background-color: $tweetGrey;
 
         &:hover {
             background-color: var(--my-color);

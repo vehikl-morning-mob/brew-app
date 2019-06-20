@@ -1,7 +1,9 @@
 <template>
     <div class="twitter-app">
-        <h1>Brew.</h1>
-        <tweet-input-box @new-tweet="onNewTweetCreated"/>
+        <div class="brown">
+            <h1>Brew.</h1>
+            <tweet-input-box @new-tweet="onNewTweetCreated"/>
+        </div>
         <tweet-feed :messages="messages"/>
     </div>
 </template>
@@ -26,6 +28,16 @@
 <style scoped lang="scss">
     @import "../../sass/variables";
 
+    .twitter-app {
+        background-color: $grey;
+        height: 100vh;
+    }
+
+    .brown {
+        background: $coffeeBrown;
+        padding: 1rem;
+    }
+
     h1 {
         text-transform: uppercase;
         font-weight: 900;
@@ -35,6 +47,5 @@
         padding: 1rem;
         text-align: center;
         color: transparent;
-        background: $coffeeBrown;
     }
 </style>
