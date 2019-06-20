@@ -1,5 +1,6 @@
 <template>
     <div class="tweet-card">
+        <img class="user-avatar" :src="`https://robohash.org/${ message }?set=set4`">
         <div class="card-body" v-text="message"></div>
     </div>
 </template>
