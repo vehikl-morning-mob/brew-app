@@ -29,6 +29,6 @@
     }
 
     .card-unit {
-        margin: $size-xl;
+        margin: $size-xl 0;
     }
 </style>
