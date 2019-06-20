@@ -20,6 +20,7 @@
         background-color: $tweetGrey;
         border-radius: $size-lg $size-lg $size-5xl $size-5xl;
         box-shadow: 0 4px 10px 0 hsla(0, 0, 0, 0.1);
+        min-height: $size-8xl;
 
         &:hover {
             background-color: var(--my-color);
