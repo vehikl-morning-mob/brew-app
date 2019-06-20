@@ -18,6 +18,7 @@
 
     .tweet-card {
         background-color: $tweetGrey;
+        border-radius: $size-lg $size-lg $size-5xl $size-5xl;
 
         &:hover {
             background-color: var(--my-color);
