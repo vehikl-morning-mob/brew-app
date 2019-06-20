@@ -1,6 +1,7 @@
 <template>
     <div>
-        <tweet-card v-for="(message, index) in messages"
+        <tweet-card class="card-unit"
+                    v-for="(message, index) in messages"
                     :key="index"
                     :message="message"/>
     </div>
@@ -18,3 +19,11 @@
 
     }
 </script>
+
+<style scoped lang="scss">
+    @import "../../sass/variables";
+
+    .card-unit {
+        margin: $size-xl;
+    }
+</style>
