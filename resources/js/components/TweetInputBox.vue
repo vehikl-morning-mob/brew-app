@@ -40,7 +40,7 @@
         padding: $size-sm;
         border-radius: $size-xl;
         resize: none;
-        height: 8rem;
+        height: $size-8xl;
         outline: transparent;
         color: $tweetGrey;
     }
