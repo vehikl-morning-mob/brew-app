@@ -45,7 +45,6 @@
         height: 8rem;
         outline: transparent;
         color: $tweetGrey;
-        font-family: 'Roboto', sans-serif;
     }
 
     .submit-button {

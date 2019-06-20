@@ -28,7 +28,6 @@
 
     h1 {
         text-transform: uppercase;
-        font-family: 'Roboto', sans-serif;
         font-weight: 900;
         -webkit-text-stroke: 1px white;
         letter-spacing: 0.2rem;
