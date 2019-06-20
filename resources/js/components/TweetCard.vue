@@ -26,4 +26,9 @@
             background-color: var(--my-color);
         }
     }
+
+    .card-body {
+        height: 100%;
+        word-break: break-word;
+    }
 </style>
