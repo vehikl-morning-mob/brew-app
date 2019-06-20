@@ -35,7 +35,7 @@
 
     .brown {
         background: $coffeeBrown;
-        padding: 1rem;
+        padding: $size-md;
     }
 
     h1 {
@@ -44,7 +44,7 @@
         -webkit-text-stroke: 1px white;
         letter-spacing: 0.2rem;
         margin: 0;
-        padding: 1rem;
+        padding: $size-md;
         text-align: center;
         color: transparent;
     }

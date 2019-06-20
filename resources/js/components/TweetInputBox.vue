@@ -37,8 +37,8 @@
     .input-box {
         background-color: $lightBrown;
         border: 2px solid $lightBrownBorder;
-        padding: 0.875rem;
-        border-radius: 1.25rem;
+        padding: $size-sm;
+        border-radius: $size-xl;
         resize: none;
         height: 8rem;
         outline: transparent;
@@ -46,15 +46,15 @@
     }
 
     .submit-button {
-        border-radius: 1rem;
+        border-radius: $size-md;
         background-color: $green;
         color: $coffeeBrown;
-        height: 2rem;
+        height: $size-4xl;
         text-transform: uppercase;
         font-weight: bold;
         line-height: 1;
         border: none;
-        margin-top: 0.5rem;
+        margin-top: $size-xs;
         letter-spacing: 0.1rem;
     }
 
