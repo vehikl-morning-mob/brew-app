@@ -29,6 +29,8 @@
     @import "../../sass/variables";
 
     .twitter-app {
+        max-width: 600px;
+        margin: 0 auto;
         background-color: $grey;
         height: 100vh;
     }
