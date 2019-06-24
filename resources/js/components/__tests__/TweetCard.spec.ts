@@ -2,7 +2,7 @@ import {mount, Wrapper} from "@vue/test-utils";
 import TweetCard from "../TweetCard.vue";
 
 describe('TweetCard', () => {
-    it('renders a given meessage', () => {
+    it('renders a given message', () => {
         const givenMessage: string = 'Hello World!';
 
         const wrapper: Wrapper<TweetCard> = mount(TweetCard, {
