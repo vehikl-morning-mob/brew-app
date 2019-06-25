@@ -62,6 +62,10 @@
         border: none;
         margin-top: $size-xs;
         letter-spacing: 0.1rem;
+
+        &:disabled {
+            filter: saturate(50%);
+        }
     }
 
 </style>
