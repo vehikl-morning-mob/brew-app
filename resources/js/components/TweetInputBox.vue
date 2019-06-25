@@ -1,7 +1,11 @@
 <template>
     <form class="tweet-input-box" @submit.prevent>
+        <div class="text-area-with-fill">
             <textarea class="input-box"
-                      v-model="message"></textarea>
+                      v-model="message">
+            </textarea>
+            <div class="coffee-fill"></div>
+        </div>
 
 
         <button type="submit"
@@ -14,8 +18,9 @@
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from 'vue-property-decorator';
+    import {Component, Vue, Watch} from 'vue-property-decorator';
 
+    const maxCharacterCount: number = 120;
     @Component
     export default class TweetInputBox extends Vue {
         protected message: string = '';
@@ -26,14 +31,35 @@
         }
 
         protected get canSubmitBrew(): boolean {
-            return this.message.length <= 120 && this.message.length > 0;
+            return this.message.length <= maxCharacterCount && this.message.length > 0;
         }
 
+        protected get fillPercentage(): number {
+            return this.message.length / maxCharacterCount;
+        }
+
+        @Watch('message')
+        protected updateCoffeeFill(): void {
+            document.documentElement.style.setProperty('--fill-percentage', `${this.fillPercentage * 100}%`);
+        }
     }
 </script>
 
 <style lang="scss">
     @import '../../sass/variables';
+
+    .text-area-with-fill {
+        position: relative;
+
+        .coffee-fill {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: var(--fill-percentage);
+            border-radius: $size-xl;
+            background-color: black;
+        }
+    }
 
     .tweet-input-box {
         display: flex;
@@ -47,6 +73,7 @@
         border-radius: $size-xl;
         resize: none;
         height: $size-8xl;
+        width: 100%;
         outline: transparent;
         color: $tweetGrey;
     }
