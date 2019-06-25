@@ -19,6 +19,7 @@
     @Component
     export default class TweetInputBox extends Vue {
         protected message: string = '';
+        z
 
         protected submitTweet(): void {
             this.$emit('new-tweet', this.message);
