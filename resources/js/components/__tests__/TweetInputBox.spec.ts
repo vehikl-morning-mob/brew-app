@@ -30,14 +30,18 @@ describe('TweetInputBox', () => {
         expect(inputBox.value).toBe('');
     });
 
-    describe('Does not allow more than 120 characters', () => {
+    describe('Disable submit button for messages with invalid character count', () => {
+        const maxCharacterCount: number = 120;
+        const minCharacterCount: number = 1;
+
         it.each`
         characterCount | isSubmitDisabled
-        ${1}            | ${false}
-        ${119}            | ${false}
-        ${120}            | ${false}
-        ${121}            | ${true}
-        `('$characterCount submit disabled is $isSubmitDisabled', ({characterCount, isSubmitDisabled}) => {
+        ${minCharacterCount - 1} | ${true}
+        ${minCharacterCount}     | ${false}
+        ${maxCharacterCount - 1} | ${false}
+        ${maxCharacterCount}     | ${false}
+        ${maxCharacterCount + 1} | ${true}
+        `('for $characterCount characters submit disabled is $isSubmitDisabled', ({characterCount, isSubmitDisabled}) => {
             message = 'k'.repeat(characterCount);
             wrapper.find('.input-box').setValue(message);
             expect((wrapper.find('.submit-button').element as HTMLButtonElement).disabled).toBe(isSubmitDisabled);

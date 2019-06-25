@@ -5,7 +5,7 @@
 
 
         <button type="submit"
-                :disabled="message.length > 120"
+                :disabled="!canSubmitBrew"
                 @click="submitTweet"
                 class="submit-button">
             Brew
@@ -19,12 +19,16 @@
     @Component
     export default class TweetInputBox extends Vue {
         protected message: string = '';
-        z
 
         protected submitTweet(): void {
             this.$emit('new-tweet', this.message);
             this.message = '';
         }
+
+        protected get canSubmitBrew(): boolean {
+            return this.message.length <= 120 && this.message.length > 0;
+        }
+
     }
 </script>
 
