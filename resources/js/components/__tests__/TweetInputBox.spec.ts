@@ -30,4 +30,18 @@ describe('TweetInputBox', () => {
         expect(inputBox.value).toBe('');
     });
 
+    describe('Does not allow more than 120 characters', () => {
+        it('enables the submit button while text length <= 120 characters', () => {
+            message = 'k'.repeat(120);
+            wrapper.find('.input-box').setValue(message);
+            expect((wrapper.find('.submit-button').element as HTMLButtonElement).disabled).toBe(false);
+        });
+
+        it('disables the submit button while text length greater than 120 characters', () => {
+            message = 'k'.repeat(121);
+            wrapper.find('.input-box').setValue(message);
+            expect((wrapper.find('.submit-button').element as HTMLButtonElement).disabled).toBe(true);
+        })
+    });
+
 });

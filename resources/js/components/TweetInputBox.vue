@@ -5,6 +5,7 @@
 
 
         <button type="submit"
+                :disabled="message.length > 120"
                 @click="submitTweet"
                 class="submit-button">
             Brew
