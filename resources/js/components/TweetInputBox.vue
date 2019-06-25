@@ -1,10 +1,10 @@
 <template>
     <form class="tweet-input-box" @submit.prevent>
         <div class="text-area-with-fill">
+            <div class="coffee-fill"></div>
             <textarea class="input-box"
                       v-model="message">
             </textarea>
-            <div class="coffee-fill"></div>
         </div>
 
 
@@ -50,14 +50,16 @@
 
     .text-area-with-fill {
         position: relative;
+        border-radius: $size-xl;
+        overflow: hidden;
 
         .coffee-fill {
             position: absolute;
             bottom: 0;
             width: 100%;
             height: var(--fill-percentage);
-            border-radius: $size-xl;
             background-color: black;
+            z-index: 1;
         }
     }
 
@@ -76,6 +78,9 @@
         width: 100%;
         outline: transparent;
         color: $tweetGrey;
+        position: relative;
+        z-index: 2;
+        display: block;
     }
 
     .submit-button {
