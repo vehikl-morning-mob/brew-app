@@ -11,7 +11,7 @@ describe('TweetCard', () => {
             }
         });
 
-        expect(wrapper.find('.card-body').text()).toContain(givenMessage);
+        expect(wrapper.find('.tweet-card').text()).toContain(givenMessage);
     });
 
     it('renders an avatar', () => {
