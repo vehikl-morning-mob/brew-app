@@ -2,7 +2,10 @@
     <div class="tweet-card">
         <div class="border-look-alike"/>
         <img class="user-avatar" :src="tweetPayload.avatarUrl">
-        <div class="message-container" v-text="tweetPayload.message"></div>
+        <div class="name-and-message">
+            <div class="user-name" v-text="tweetPayload.userName"></div>
+            <div class="message-container" v-text="tweetPayload.message"></div>
+        </div>
     </div>
 </template>
 
@@ -29,7 +32,7 @@
         position: relative;
     }
 
-    .message-container {
+    .name-and-message {
         background-color: $tweetGrey;
         border-radius: $size-lg $size-lg $size-5xl $size-5xl;
         box-shadow: 0 4px 10px 0 hsla(0, 0, 0, 0.1);

@@ -27,4 +27,8 @@ describe('TweetCard', () => {
         const image: HTMLImageElement = wrapper.find('.user-avatar').element as HTMLImageElement;
         expect(image.src).toContain(tweetPayload.avatarUrl);
     });
+
+    it('Renders the username', () => {
+        expect(wrapper.find('.user-name').text()).toContain(tweetPayload.userName);
+    });
 });
