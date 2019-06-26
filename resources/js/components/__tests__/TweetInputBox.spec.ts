@@ -1,5 +1,6 @@
 import {mount, Wrapper} from "@vue/test-utils";
 import TweetInputBox from "../TweetInputBox.vue";
+import {TweetPayload} from "../../types";
 
 describe('TweetInputBox', () => {
     let message: string;

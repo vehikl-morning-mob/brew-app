@@ -4,7 +4,7 @@
             <h1>Brew.</h1>
             <tweet-input-box @new-tweet="onNewTweetCreated"/>
         </div>
-        <tweet-feed :messages="messages"/>
+        <tweet-feed :tweet-payloads="tweetPayloads"/>
     </div>
 </template>
 
@@ -12,15 +12,22 @@
     import {Component, Vue} from 'vue-property-decorator';
     import TweetInputBox from "./TweetInputBox.vue";
     import TweetFeed from "./TweetFeed.vue";
+    import {TweetPayload} from '../types';
 
     @Component({
         components: {TweetFeed, TweetInputBox}
     })
     export default class TwitterApp extends Vue {
-        protected messages: string[] = [];
+        protected tweetPayloads: TweetPayload[] = [];
 
         protected onNewTweetCreated(message: string): void {
-            this.messages.unshift(message);
+            const tweetPayload: TweetPayload = {
+                message,
+                avatarUrl: `https://robohash.org/${message}?set=set4`,
+                userName: 'You'
+            };
+
+            this.tweetPayloads.unshift(tweetPayload);
         }
     }
 </script>

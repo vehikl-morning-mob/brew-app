@@ -1,17 +1,18 @@
 <template>
     <div class="tweet-card">
         <div class="border-look-alike"/>
-        <img class="user-avatar" :src="`https://robohash.org/${ message }?set=set4`">
-        <div class="message-container" v-text="message"></div>
+        <img class="user-avatar" :src="`https://robohash.org/${ tweetPayload.message }?set=set4`">
+        <div class="message-container" v-text="tweetPayload.message"></div>
     </div>
 </template>
 
 <script lang="ts">
     import {Prop, Component, Vue} from 'vue-property-decorator';
+    import {TweetPayload} from '../types';
 
     @Component
     export default class TweetCard extends Vue {
-        @Prop() protected message!: string;
+        @Prop() protected tweetPayload!: TweetPayload;
     }
 </script>
 

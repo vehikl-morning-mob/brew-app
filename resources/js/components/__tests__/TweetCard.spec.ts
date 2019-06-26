@@ -1,22 +1,29 @@
 import {mount, Wrapper} from "@vue/test-utils";
 import TweetCard from "../TweetCard.vue";
+import {TweetPayload} from "../../types";
 
 describe('TweetCard', () => {
-    it('renders a given message', () => {
-        const givenMessage: string = 'Hello World!';
+    let tweetPayload: TweetPayload;
+    let wrapper: Wrapper<TweetCard>;
+    beforeEach(() => {
+        tweetPayload = {
+            message: 'blah',
+            userName: 'asdf',
+            avatarUrl: 'asdfasd.com'
+        };
 
-        const wrapper: Wrapper<TweetCard> = mount(TweetCard, {
+        wrapper = mount(TweetCard, {
             propsData: {
-                message: givenMessage,
+                tweetPayload,
             }
         });
+    });
 
-        expect(wrapper.find('.tweet-card').text()).toContain(givenMessage);
+    it('renders a given message', () => {
+        expect(wrapper.find('.tweet-card').text()).toContain(tweetPayload.message);
     });
 
     it('renders an avatar', () => {
-        const wrapper: Wrapper<TweetCard> = mount(TweetCard);
-
         expect(wrapper.find('.user-avatar').exists()).toBe(true);
     });
 });
