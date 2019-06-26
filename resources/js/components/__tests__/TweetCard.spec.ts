@@ -23,7 +23,8 @@ describe('TweetCard', () => {
         expect(wrapper.find('.tweet-card').text()).toContain(tweetPayload.message);
     });
 
-    it('renders an avatar', () => {
-        expect(wrapper.find('.user-avatar').exists()).toBe(true);
+    it('renders the user avatar', () => {
+        const image: HTMLImageElement = wrapper.find('.user-avatar').element as HTMLImageElement;
+        expect(image.src).toContain(tweetPayload.avatarUrl);
     });
 });

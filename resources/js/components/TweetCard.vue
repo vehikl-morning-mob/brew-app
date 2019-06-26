@@ -1,7 +1,7 @@
 <template>
     <div class="tweet-card">
         <div class="border-look-alike"/>
-        <img class="user-avatar" :src="`https://robohash.org/${ tweetPayload.message }?set=set4`">
+        <img class="user-avatar" :src="tweetPayload.avatarUrl">
         <div class="message-container" v-text="tweetPayload.message"></div>
     </div>
 </template>
