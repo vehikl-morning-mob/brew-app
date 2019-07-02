@@ -24,6 +24,7 @@ class StoreTweetRequest extends FormRequest
     public function rules()
     {
         return [
+            'user_id' => 'exists:users,id',
             'message' => 'min:1|max:120',
         ];
     }

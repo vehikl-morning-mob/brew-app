@@ -42,7 +42,6 @@ class TweetApiTest extends TestCase
 
     public function testItRejectsTweetFromInvalidUserId()
     {
-        $this->markTestSkipped();
         $response = $this->postJson('/api/tweet', $this->generateTweetParams(['user_id' => 1234]));
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
