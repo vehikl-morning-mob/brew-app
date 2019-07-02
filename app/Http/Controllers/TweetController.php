@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Tweet;
+use App\User;
 use Illuminate\Http\Request;
 
 class TweetController extends Controller
@@ -35,11 +36,7 @@ class TweetController extends Controller
      */
     public function store(Request $request)
     {
-        $tweet = new Tweet;
-        $tweet->message = $request->message;
-        $tweet->user_id = $request->user_id;
-
-        $tweet->save();
+        User::find($request->user_id)->tweets()->create($request->all());
     }
 
     /**

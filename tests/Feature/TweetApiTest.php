@@ -14,11 +14,13 @@ class TweetApiTest extends TestCase
     public function testATweetCanBeCreated()
     {
         $user = factory(User::class)->create();
+
         $startAmountOfTweets = Tweet::count();
         $response = $this->post('/api/tweet', [
             'user_id' => $user->id,
             'message' => 'Hello World',
         ]);
+
         $response->assertSuccessful();
         $this->assertEquals($startAmountOfTweets + 1, Tweet::count());
     }
