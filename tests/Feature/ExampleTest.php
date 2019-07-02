@@ -2,20 +2,24 @@
 
 namespace Tests\Feature;
 
+use App\Tweet;
+use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ExampleTest extends TestCase
+class TweetApiTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testBasicTest()
-    {
-        $response = $this->get('/');
+    use RefreshDatabase;
 
-        $response->assertStatus(200);
+    public function testATweetCanBeCreated()
+    {
+        $user = factory(User::class)->create();
+        $startAmountOfTweets = Tweet::count();
+        $response = $this->post('/api/tweet', [
+            'user_id' => $user->id,
+            'message' => 'Hello World',
+        ]);
+        $response->assertSuccessful();
+        $this->assertEquals($startAmountOfTweets + 1, Tweet::count());
     }
 }
