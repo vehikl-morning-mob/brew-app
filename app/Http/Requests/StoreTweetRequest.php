@@ -24,7 +24,7 @@ class StoreTweetRequest extends FormRequest
     public function rules()
     {
         return [
-            'message' => 'min:1',
+            'message' => 'min:1|max:120',
         ];
     }
 }
