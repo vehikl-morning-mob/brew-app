@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTweetRequest;
 use App\Tweet;
 use App\User;
 use Illuminate\Http\Request;
@@ -34,7 +35,7 @@ class TweetController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTweetRequest $request)
     {
         User::find($request->user_id)->tweets()->create($request->all());
     }
