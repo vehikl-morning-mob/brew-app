@@ -17,7 +17,7 @@ class TweetApiTest extends TestCase
         $user = factory(User::class)->create();
 
         $startAmountOfTweets = Tweet::count();
-        $response = $this->post('/api/tweet', [
+        $response = $this->postJson('/api/tweet', [
             'user_id' => $user->id,
             'message' => 'Hello World',
         ]);
