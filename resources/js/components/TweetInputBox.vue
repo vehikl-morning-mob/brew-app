@@ -7,7 +7,6 @@
             </textarea>
         </div>
 
-
         <button type="submit"
                 :disabled="!canSubmitBrew"
                 @click="submitTweet"
