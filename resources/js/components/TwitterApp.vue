@@ -2,14 +2,16 @@
     <div class="twitter-app">
         <div class="brown">
             <h1>Brew.</h1>
-            <tweet-input-box :min-tweet-length="1" :max-tweet-length="120" @new-tweet="onNewTweetCreated"/>
+            <tweet-input-box :min-tweet-length="minTweetLength"
+                             :max-tweet-length="maxTweetLength"
+                             @new-tweet="onNewTweetCreated"/>
         </div>
         <tweet-feed :tweet-payloads="tweetPayloads"/>
     </div>
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from 'vue-property-decorator';
+    import {Component, Prop, Vue} from 'vue-property-decorator';
     import TweetInputBox from "./TweetInputBox.vue";
     import TweetFeed from "./TweetFeed.vue";
     import {TweetPayload} from '../types';
@@ -18,6 +20,9 @@
         components: {TweetFeed, TweetInputBox}
     })
     export default class TwitterApp extends Vue {
+        @Prop() protected maxTweetLength!: number;
+        @Prop() protected minTweetLength!: number;
+
         protected tweetPayloads: TweetPayload[] = [];
 
         protected onNewTweetCreated(message: string): void {

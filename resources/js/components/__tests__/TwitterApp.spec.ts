@@ -6,8 +6,14 @@ import TweetCard from "../TweetCard.vue";
 
 describe('Twitter App', () => {
     let wrapper: Wrapper<TwitterApp>;
+
     beforeEach(() => {
-        wrapper = mount(TwitterApp);
+        wrapper = mount(TwitterApp, {
+            propsData: {
+                maxTweetLength: 120,
+                minTweetLength: 1
+            }
+        });
     });
 
     it('has an input box', () => {
@@ -34,6 +40,32 @@ describe('Twitter App', () => {
         wrapper.find('.submit-button').trigger('click');
 
         expect(wrapper.findAll(TweetCard).at(0).text()).toContain('second message');
+    });
+
+    describe('prevents tweet with invalid sizes from being submitted', () => {
+        const maxTweetLength = 15;
+        const minTweetLength = 10;
+        beforeEach(() => {
+            wrapper = mount(TwitterApp, {
+                propsData: {
+                    maxTweetLength,
+                    minTweetLength
+                }
+            });
+        });
+
+        it('prevents tweet below minimum size from being submitted', () => {
+            let message = 'k'.repeat(minTweetLength - 1);
+            wrapper.find('.input-box').setValue(message);
+            expect((wrapper.find('.submit-button').element as HTMLButtonElement).disabled).toBe(true);
+        });
+
+        it('prevents tweet above maximum size from being submitted', () => {
+            let message = 'k'.repeat(maxTweetLength + 1);
+            wrapper.find('.input-box').setValue(message);
+            expect((wrapper.find('.submit-button').element as HTMLButtonElement).disabled).toBe(true);
+        });
+
     });
 });
 
