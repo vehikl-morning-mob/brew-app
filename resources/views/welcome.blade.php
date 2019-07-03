@@ -12,7 +12,9 @@
 </head>
 <body>
 <div id="app">
-    <twitter-app></twitter-app>
+    <twitter-app :min-tweet-length="{{ $minTweetLength }}"
+                 :max-tweet-length="{{ $maxTweetLength }}"
+    ></twitter-app>
 </div>
 </body>
 </html>
