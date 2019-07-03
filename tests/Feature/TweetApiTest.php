@@ -33,8 +33,8 @@ class TweetApiTest extends TestCase
 
     public function testItRejectsTweetsGreaterThanMaxLength()
     {
-        $maxChars = config('tweetRules.maxCharLength');
-        
+        $maxChars = config('tweetRules.maxCharCount');
+
         $response = $this->postJson('/api/tweet',
             $this->generateTweetParams(['message' => Str::random($maxChars + 1)]));
 

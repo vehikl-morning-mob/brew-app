@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'maxCharLength' => 120,
+    'maxCharCount' => 120,
 ];
