@@ -25,7 +25,7 @@ class StoreTweetRequest extends FormRequest
     {
         return [
             'user_id' => 'exists:users,id',
-            'message' => 'min:1|max:120',
+            'message' => "min:1|max:".config('tweetRules.maxCharLength'),
         ];
     }
 }
