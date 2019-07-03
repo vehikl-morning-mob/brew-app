@@ -12,7 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome', [
+        'maxTweetLength' => config('tweetRules.maxCharCount'),
+        'minTweetLength' => config('tweetRules.minCharCount'),
+    ]);
 });
 
 Auth::routes();

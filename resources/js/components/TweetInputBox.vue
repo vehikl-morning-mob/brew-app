@@ -17,11 +17,13 @@
 </template>
 
 <script lang="ts">
-    import {Component, Vue, Watch} from 'vue-property-decorator';
+    import {Component, Vue, Watch, Prop} from 'vue-property-decorator';
 
-    const maxCharacterCount: number = 120;
     @Component
     export default class TweetInputBox extends Vue {
+        @Prop() protected maxTweetLength!: number;
+        @Prop() protected minTweetLength!: number;
+
         protected message: string = '';
 
         protected submitTweet(): void {
@@ -30,11 +32,11 @@
         }
 
         protected get canSubmitBrew(): boolean {
-            return this.message.length <= maxCharacterCount && this.message.length > 0;
+            return this.message.length <= this.maxTweetLength && this.message.length >= this.minTweetLength;
         }
 
         protected get fillPercentage(): number {
-            return this.message.length / maxCharacterCount;
+            return this.message.length / this.maxTweetLength;
         }
 
         @Watch('message')

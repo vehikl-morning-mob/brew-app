@@ -7,7 +7,12 @@ describe('TweetInputBox', () => {
     let wrapper: Wrapper<TweetInputBox>;
 
     beforeEach(() => {
-        wrapper = mount(TweetInputBox);
+        wrapper = mount(TweetInputBox, {
+            propsData: {
+                minTweetLength: 1,
+                maxTweetLength: 120,
+            }
+        });
     });
 
     describe('Submit Event', () => {
@@ -32,18 +37,25 @@ describe('TweetInputBox', () => {
     });
 
     describe('Disable submit button for messages with invalid character count', () => {
-        const maxCharacterCount: number = 120;
-        const minCharacterCount: number = 1;
+        const maxTweetLength: number = 55;
+        const minTweetLength: number = 50;
 
         it.each`
-        characterCount | isSubmitDisabled
-        ${minCharacterCount - 1} | ${true}
-        ${minCharacterCount}     | ${false}
-        ${maxCharacterCount - 1} | ${false}
-        ${maxCharacterCount}     | ${false}
-        ${maxCharacterCount + 1} | ${true}
-        `('for $characterCount characters submit disabled is $isSubmitDisabled', ({characterCount, isSubmitDisabled}) => {
-            message = 'k'.repeat(characterCount);
+        currentTweetLength | isSubmitDisabled
+        ${minTweetLength - 1} | ${true}
+        ${minTweetLength}     | ${false}
+        ${maxTweetLength - 1} | ${false}
+        ${maxTweetLength}     | ${false}
+        ${maxTweetLength + 1} | ${true}
+        `('for $characterCount characters submit disabled is $isSubmitDisabled', ({currentTweetLength, isSubmitDisabled}) => {
+            wrapper = mount(TweetInputBox, {
+                propsData: {
+                    maxTweetLength,
+                    minTweetLength
+                }
+            });
+
+            message = 'k'.repeat(currentTweetLength);
             wrapper.find('.input-box').setValue(message);
             expect((wrapper.find('.submit-button').element as HTMLButtonElement).disabled).toBe(isSubmitDisabled);
         });

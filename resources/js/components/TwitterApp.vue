@@ -2,7 +2,7 @@
     <div class="twitter-app">
         <div class="brown">
             <h1>Brew.</h1>
-            <tweet-input-box @new-tweet="onNewTweetCreated"/>
+            <tweet-input-box :min-tweet-length="1" :max-tweet-length="120" @new-tweet="onNewTweetCreated"/>
         </div>
         <tweet-feed :tweet-payloads="tweetPayloads"/>
     </div>
