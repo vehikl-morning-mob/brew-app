@@ -23,9 +23,12 @@ class StoreTweetRequest extends FormRequest
      */
     public function rules()
     {
+        $maxChars = config('tweetRules.maxCharCount');
+        $minChars = config('tweetRules.minCharCount');
+
         return [
             'user_id' => 'exists:users,id',
-            'message' => "min:1|max:".config('tweetRules.maxCharCount'),
+            'message' => "min:$minChars|max:$maxChars",
         ];
     }
 }
