@@ -30,6 +30,13 @@ class TweetApiTest extends TestCase
         $this->assertEquals($startAmountOfTweets + 1, Tweet::count());
     }
 
+    public function testAGuestCannotCreateATweet()
+    {
+        $response = $this->postJson('/tweet', ['message' => 'Hello world']);
+
+        $response->assertStatus(Response::HTTP_UNAUTHORIZED);
+    }
+
     public function testItRejectsEmptyTweets()
     {
         $response = $this->postNewTweet('');

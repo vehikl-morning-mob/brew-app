@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreTweetRequest;
-use App\Tweet;
-use App\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreTweetRequest;
 
 class TweetController extends Controller
 {
