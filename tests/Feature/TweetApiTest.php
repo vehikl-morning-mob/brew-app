@@ -18,7 +18,7 @@ class TweetApiTest extends TestCase
     public function testATweetCanBeCreated()
     {
         $startAmountOfTweets = Tweet::count();
-        $response = $this->postJson('/api/tweet', $this->generateTweetParams());
+        $response = $this->postJson('/tweet', $this->generateTweetParams());
 
         $response->assertSuccessful();
         $this->assertEquals($startAmountOfTweets + 1, Tweet::count());
@@ -26,7 +26,7 @@ class TweetApiTest extends TestCase
 
     public function testItRejectsEmptyTweets()
     {
-        $response = $this->postJson('/api/tweet', $this->generateTweetParams(['message' => '']));
+        $response = $this->postJson('/tweet', $this->generateTweetParams(['message' => '']));
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
@@ -35,7 +35,7 @@ class TweetApiTest extends TestCase
     {
         $maxChars = config('tweetRules.maxCharCount');
 
-        $response = $this->postJson('/api/tweet',
+        $response = $this->postJson('/tweet',
             $this->generateTweetParams(['message' => Str::random($maxChars + 1)]));
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
@@ -43,7 +43,7 @@ class TweetApiTest extends TestCase
 
     public function testItRejectsTweetFromInvalidUserId()
     {
-        $response = $this->postJson('/api/tweet', $this->generateTweetParams(['user_id' => 1234]));
+        $response = $this->postJson('/tweet', $this->generateTweetParams(['user_id' => 1234]));
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
