@@ -15,6 +15,12 @@ class TweetApiTest extends TestCase
     use RefreshDatabase;
     protected $user;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->user = factory(User::class)->create();
+    }
+
     public function testATweetCanBeCreated()
     {
         $startAmountOfTweets = Tweet::count();
@@ -38,12 +44,6 @@ class TweetApiTest extends TestCase
         $response = $this->postNewTweet(Str::random($maxChars + 1));
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-    }
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->user = factory(User::class)->create();
     }
 
     private function postNewTweet($message): TestResponse
