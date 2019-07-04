@@ -37,7 +37,7 @@ class TweetController extends Controller
      */
     public function store(StoreTweetRequest $request)
     {
-        User::find($request->user_id)->tweets()->create($request->all());
+        $request->user()->tweets()->create($request->all());
     }
 
     /**

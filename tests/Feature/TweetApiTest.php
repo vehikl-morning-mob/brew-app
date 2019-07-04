@@ -18,7 +18,7 @@ class TweetApiTest extends TestCase
     public function testATweetCanBeCreated()
     {
         $startAmountOfTweets = Tweet::count();
-        $response = $this->postJson('/tweet', $this->generateTweetParams());
+        $response = $this->actingAs($this->user)->postJson('/tweet', ['message' => 'hello world']);
 
         $response->assertSuccessful();
         $this->assertEquals($startAmountOfTweets + 1, Tweet::count());
