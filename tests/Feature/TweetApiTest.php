@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use App\Tweet;
 use App\User;
-use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -18,7 +18,7 @@ class TweetApiTest extends TestCase
     public function testATweetCanBeCreated()
     {
         $startAmountOfTweets = Tweet::count();
-        $response = $this->actingAs($this->user)->postJson('/tweet', ['message' => 'hello world']);
+        $response = $this->postNewTweet('hello world');
 
         $response->assertSuccessful();
         $this->assertEquals($startAmountOfTweets + 1, Tweet::count());
@@ -26,7 +26,7 @@ class TweetApiTest extends TestCase
 
     public function testItRejectsEmptyTweets()
     {
-        $response = $this->postJson('/tweet', $this->generateTweetParams(['message' => '']));
+        $response = $this->postNewTweet('');
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
@@ -35,32 +35,19 @@ class TweetApiTest extends TestCase
     {
         $maxChars = config('tweetRules.maxCharCount');
 
-        $response = $this->postJson('/tweet',
-            $this->generateTweetParams(['message' => Str::random($maxChars + 1)]));
+        $response = $this->postNewTweet(Str::random($maxChars + 1));
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-    }
-
-    public function testItRejectsTweetFromInvalidUserId()
-    {
-        $response = $this->postJson('/tweet', $this->generateTweetParams(['user_id' => 1234]));
-
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
-    }
-
-    private function generateTweetParams($override = [])
-    {
-        $validTweetParams = [
-            'user_id' => $this->user->id,
-            'message' => 'Tacos Tacos Tacos',
-        ];
-
-        return array_merge($validTweetParams, $override);
     }
 
     protected function setUp(): void
     {
         parent::setUp();
         $this->user = factory(User::class)->create();
+    }
+
+    private function postNewTweet($message): TestResponse
+    {
+        return $this->actingAs($this->user)->postJson('/tweet', ['message' => $message]);
     }
 }
