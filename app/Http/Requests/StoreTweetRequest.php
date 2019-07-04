@@ -27,7 +27,6 @@ class StoreTweetRequest extends FormRequest
         $minChars = config('tweetRules.minCharCount');
 
         return [
-            'user_id' => 'exists:users,id',
             'message' => "min:$minChars|max:$maxChars",
         ];
     }
