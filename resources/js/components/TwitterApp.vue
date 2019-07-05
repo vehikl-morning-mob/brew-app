@@ -14,7 +14,8 @@
     import {Component, Prop, Vue} from 'vue-property-decorator';
     import TweetInputBox from "./TweetInputBox.vue";
     import TweetFeed from "./TweetFeed.vue";
-    import {TweetPayload} from '../types';
+    import {TweetPayload} from "../types";
+    import axios from "axios";
 
     @Component({
         components: {TweetFeed, TweetInputBox}
@@ -26,13 +27,16 @@
         protected tweetPayloads: TweetPayload[] = [];
 
         protected onNewTweetCreated(message: string): void {
-            const tweetPayload: TweetPayload = {
-                message,
-                avatarUrl: `https://robohash.org/${message}?set=set4`,
-                userName: 'You'
-            };
-
-            this.tweetPayloads.unshift(tweetPayload);
+            axios.post('/tweet', {
+                message
+            }).then(() => {
+                const tweetPayload: TweetPayload = {
+                    message,
+                    avatarUrl: `https://robohash.org/${message}?set=set4`,
+                    userName: 'You'
+                };
+                this.tweetPayloads.unshift(tweetPayload);
+            });
         }
     }
 </script>
