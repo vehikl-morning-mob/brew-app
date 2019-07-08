@@ -26,17 +26,20 @@
 
         protected tweetPayloads: TweetPayload[] = [];
 
-        protected onNewTweetCreated(message: string): void {
-            axios.post('/tweet', {
-                message
-            }).then(() => {
+        protected async onNewTweetCreated(message: string): Promise<void> {
+            try {
+                await axios.post('/tweet', {
+                    message
+                });
+
                 const tweetPayload: TweetPayload = {
                     message,
                     avatarUrl: `https://robohash.org/${message}?set=set4`,
                     userName: 'You'
                 };
                 this.tweetPayloads.unshift(tweetPayload);
-            });
+            } catch ({response}) {
+            }
         }
     }
 </script>
