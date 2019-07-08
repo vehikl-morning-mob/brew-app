@@ -15,7 +15,7 @@
     import TweetInputBox from "./TweetInputBox.vue";
     import TweetFeed from "./TweetFeed.vue";
     import {TweetPayload} from "../types";
-    import axios from "axios";
+    import axios, {AxiosResponse} from "axios";
 
     @Component({
         components: {TweetFeed, TweetInputBox}
@@ -28,11 +28,12 @@
 
         protected async onNewTweetCreated(message: string): Promise<void> {
             try {
-                const createdTweet = await axios.post('/tweet', {
-                    message
-                });
-                const tweetPayload: TweetPayload = createdTweet.data;
-                this.tweetPayloads.unshift(tweetPayload);
+                const createdTweet: AxiosResponse<TweetPayload> = await axios.post<TweetPayload>(
+                    '/tweet', {
+                        message
+                    });
+
+                this.tweetPayloads.unshift(createdTweet.data);
             } catch ({response}) {
             }
         }
