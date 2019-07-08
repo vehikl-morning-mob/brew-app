@@ -28,15 +28,10 @@
 
         protected async onNewTweetCreated(message: string): Promise<void> {
             try {
-                await axios.post('/tweet', {
+                const createdTweet = await axios.post('/tweet', {
                     message
                 });
-
-                const tweetPayload: TweetPayload = {
-                    message,
-                    avatarUrl: `https://robohash.org/${message}?set=set4`,
-                    userName: 'You'
-                };
+                const tweetPayload: TweetPayload = createdTweet.data;
                 this.tweetPayloads.unshift(tweetPayload);
             } catch ({response}) {
             }

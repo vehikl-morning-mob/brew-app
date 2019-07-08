@@ -6,6 +6,7 @@ import TweetCard from "../TweetCard.vue";
 import * as flushPromises from "flush-promises";
 import axios from "axios"
 import MockAdapter from "axios-mock-adapter";
+import {TweetPayload} from "../../types";
 
 describe('Twitter App', () => {
     let wrapper: Wrapper<TwitterApp>;
@@ -19,7 +20,19 @@ describe('Twitter App', () => {
             }
         });
         testApi = new MockAdapter(axios);
-        testApi.onPost('/tweet').reply(201);
+        const tweetResponse: TweetPayload = {
+            userName: 'Fake Name',
+            message: 'Fake Message',
+            avatarUrl: 'url.jpg'
+        };
+
+        testApi.onPost('/tweet').reply(({data}) => {
+            return [201, {
+                userName: 'Faker UserName',
+                message: JSON.parse(data).message,
+                avatarUrl: 'url.jpg'
+            }];
+        });
     });
 
     afterEach(() => {
