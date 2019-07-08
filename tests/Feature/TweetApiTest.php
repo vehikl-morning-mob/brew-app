@@ -60,8 +60,19 @@ class TweetApiTest extends TestCase
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 
+    public function testItGetsAllTweets()
+    {
+        $tweetA = $this->postNewTweet('hello world A');
+        $tweetB = $this->postNewTweet('hello world B');
+
+        $response = $this->get('/tweet');
+
+        $response->assertJsonCount(2);
+    }
+
     private function postNewTweet($message): TestResponse
     {
         return $this->actingAs($this->user)->postJson('/tweet', ['message' => $message]);
     }
+
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Tweet;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreTweetRequest;
 use Illuminate\Http\Response;
@@ -15,7 +16,15 @@ class TweetController extends Controller
      */
     public function index()
     {
-        //
+        $allTweets = Tweet::all()->map(function ($tweetItem) {
+            return [
+                'userName' => $tweetItem->user->name,
+                'avatarUrl' => '',
+                'message' => $tweetItem->message,
+            ];
+        });
+        
+        return response($allTweets, Response::HTTP_OK);
     }
 
     /**
