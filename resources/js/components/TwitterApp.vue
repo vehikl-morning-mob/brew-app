@@ -26,6 +26,11 @@
 
         protected tweetPayloads: TweetPayload[] = [];
 
+        private async created(): Promise<void> {
+            const existingTweets: AxiosResponse<TweetPayload[]> = await axios.get<TweetPayload[]>('/tweet')
+            this.tweetPayloads = existingTweets.data;
+        }
+
         protected async onNewTweetCreated(message: string): Promise<void> {
             try {
                 const createdTweet: AxiosResponse<TweetPayload> = await axios.post<TweetPayload>(

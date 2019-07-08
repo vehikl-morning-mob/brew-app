@@ -11,20 +11,21 @@ import {TweetPayload} from "../../types";
 describe('Twitter App', () => {
     let wrapper: Wrapper<TwitterApp>;
     let testApi: MockAdapter;
-
+    const preExistingTweets: TweetPayload[] = [
+        {
+            userName: 'Person A',
+            avatarUrl: 'AsAvatar.jpg',
+            message: 'Person A message'
+        },
+        {
+            userName: 'Person B',
+            avatarUrl: 'BsAvatar.jpg',
+            message: 'Person B message'
+        },
+    ];
     beforeEach(() => {
-        wrapper = mount(TwitterApp, {
-            propsData: {
-                maxTweetLength: 120,
-                minTweetLength: 1
-            }
-        });
+
         testApi = new MockAdapter(axios);
-        const tweetResponse: TweetPayload = {
-            userName: 'Fake Name',
-            message: 'Fake Message',
-            avatarUrl: 'url.jpg'
-        };
 
         testApi.onPost('/tweet').reply(({data}) => {
             return [201, {
@@ -32,6 +33,13 @@ describe('Twitter App', () => {
                 message: JSON.parse(data).message,
                 avatarUrl: 'url.jpg'
             }];
+        });
+        testApi.onGet('/tweet').reply(200, preExistingTweets);
+        wrapper = mount(TwitterApp, {
+            propsData: {
+                maxTweetLength: 120,
+                minTweetLength: 1
+            }
         });
     });
 
@@ -94,6 +102,12 @@ describe('Twitter App', () => {
             expect((wrapper.find('.submit-button').element as HTMLButtonElement).disabled).toBe(true);
         });
 
+    });
+
+    it('Shows existing tweets', async () => {
+        await flushPromises();
+
+        expect(wrapper.findAll(TweetCard).wrappers).toHaveLength(preExistingTweets.length);
     });
 });
 
