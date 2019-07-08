@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreTweetRequest;
+use Illuminate\Http\Response;
 
 class TweetController extends Controller
 {
@@ -36,6 +37,7 @@ class TweetController extends Controller
     public function store(StoreTweetRequest $request)
     {
         $request->user()->tweets()->create($request->validated());
+        return response('', Response::HTTP_CREATED);
     }
 
     /**

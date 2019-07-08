@@ -26,7 +26,7 @@ class TweetApiTest extends TestCase
         $startAmountOfTweets = Tweet::count();
         $response = $this->postNewTweet('hello world');
 
-        $response->assertSuccessful();
+        $response->assertStatus(Response::HTTP_CREATED);
         $this->assertEquals($startAmountOfTweets + 1, Tweet::count());
     }
 
