@@ -30,6 +30,13 @@ class TweetApiTest extends TestCase
         $this->assertEquals($startAmountOfTweets + 1, Tweet::count());
     }
 
+    public function testItReturnsNewlyCreatedTweetDataOnSuccess()
+    {
+        $response = $this->postNewTweet('hello world');
+
+        $response->assertJson(['message' => 'hello world', 'avatarUrl' => '', 'userName' => $this->user->name]);
+    }
+
     public function testAGuestCannotCreateATweet()
     {
         $response = $this->postJson('/tweet', ['message' => 'Hello world']);

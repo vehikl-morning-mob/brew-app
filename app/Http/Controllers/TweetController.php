@@ -36,8 +36,12 @@ class TweetController extends Controller
      */
     public function store(StoreTweetRequest $request)
     {
-        $request->user()->tweets()->create($request->validated());
-        return response('', Response::HTTP_CREATED);
+        $newTweet = $request->user()->tweets()->create($request->validated());
+        return response([
+            'message' => $newTweet->message,
+            'avatarUrl' => '',
+            'userName' => $newTweet->user->name,
+        ], Response::HTTP_CREATED);
     }
 
     /**
