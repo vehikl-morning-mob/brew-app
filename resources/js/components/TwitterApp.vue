@@ -52,7 +52,7 @@
         max-width: 600px;
         margin: 0 auto;
         background-color: $grey;
-        height: 100vh;
+        min-height: 100vh;
     }
 
     .brown {
