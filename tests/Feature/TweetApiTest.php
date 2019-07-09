@@ -62,12 +62,12 @@ class TweetApiTest extends TestCase
 
     public function testItGetsAllTweets()
     {
-        $tweetA = $this->postNewTweet('hello world A');
-        $tweetB = $this->postNewTweet('hello world B');
+        $numberOfTweets = 30;
+        factory(Tweet::class, $numberOfTweets)->create(['user_id' => $this->user->id]);
 
         $response = $this->get('/tweet');
 
-        $response->assertJsonCount(2);
+        $response->assertJsonCount($numberOfTweets);
     }
 
     private function postNewTweet($message): TestResponse
