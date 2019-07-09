@@ -16,14 +16,14 @@ class TweetController extends Controller
      */
     public function index()
     {
-        $allTweets = Tweet::all()->map(function ($tweetItem) {
+        $allTweets = Tweet::orderBy('id', 'DESC')->get()->map(function ($tweetItem) {
             return [
                 'userName' => $tweetItem->user->name,
                 'avatarUrl' => '',
                 'message' => $tweetItem->message,
             ];
         });
-        
+
         return response($allTweets, Response::HTTP_OK);
     }
 
