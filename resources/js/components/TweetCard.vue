@@ -32,6 +32,10 @@
         position: relative;
     }
 
+    .message-container {
+        overflow-wrap: break-word;
+    }
+
     .name-and-message {
         background-color: $tweetGrey;
         border-radius: $size-lg $size-lg $size-5xl $size-5xl;
