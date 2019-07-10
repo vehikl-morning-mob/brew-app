@@ -17,7 +17,8 @@
                                            name="name"
                                            v-model="name"
                                            required autocomplete="name" autofocus>
-                                    <div v-for="error in errors.name">
+                                    <div class="invalid-feedback"
+                                         v-for="error in errors.name">
                                         {{ error }}
                                     </div>
                                 </div>
@@ -36,7 +37,8 @@
                                            name="email"
                                            v-model="email"
                                            required autocomplete="email">
-                                    <div v-for="error in errors.email">
+                                    <div class="invalid-feedback"
+                                         v-for="error in errors.email">
                                         {{ error }}
                                     </div>
                                 </div>
@@ -56,7 +58,8 @@
                                            name="password"
                                            v-model="password"
                                            required autocomplete="new-password">
-                                    <div v-for="error in errors.password">
+                                    <div class="invalid-feedback"
+                                         v-for="error in errors.password">
                                         {{ error }}
                                     </div>
                                 </div>
