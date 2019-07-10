@@ -116,12 +116,13 @@
 
         protected async registerUser() {
             try {
-                const response = await axios.post(this.routeRegister, {
+                await axios.post(this.routeRegister, {
                     name: this.name,
                     email: this.email,
                     password: this.password,
                     password_confirmation: this.passwordConfirmation,
                 });
+                window.location.assign('/');
             } catch ({response}) {
                 this.errors = response.data.errors;
             }
