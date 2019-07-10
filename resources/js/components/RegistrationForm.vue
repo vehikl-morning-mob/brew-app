@@ -13,6 +13,7 @@
                                     <input id="name"
                                            type="text"
                                            class="form-control"
+                                           :class="{'is-invalid': errors.name}"
                                            name="name"
                                            v-model="name"
                                            required autocomplete="name" autofocus>
@@ -31,6 +32,7 @@
                                     <input id="email"
                                            type="email"
                                            class="form-control"
+                                           :class="{'is-invalid': errors.email}"
                                            name="email"
                                            v-model="email"
                                            required autocomplete="email">
@@ -50,6 +52,7 @@
                                 <div class="col-md-6">
                                     <input id="password" type="password"
                                            class="form-control"
+                                           :class="{'is-invalid': errors.password}"
                                            name="password"
                                            v-model="password"
                                            required autocomplete="new-password">
