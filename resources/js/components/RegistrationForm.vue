@@ -81,6 +81,13 @@
                                 </div>
                             </div>
 
+                            <file-pond
+                                ref="pond"
+                                @addfile="updateAvatar"
+                                label-idle="Drop files here..."
+                                accepted-file-types="image/jpeg, image/png"
+                                :allow-multiple="false"/>
+
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button id="submit"
@@ -102,17 +109,29 @@
 <script lang="ts">
     import {Component, Prop, Vue} from 'vue-property-decorator';
     import axios from 'axios';
+    import vueFilePond from 'vue-filepond';
+    import * as FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+    import * as FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+    import * as FilePondPluginFileEncode from 'filepond-plugin-file-encode';
 
-    @Component
+    const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview, FilePondPluginFileEncode);
+
+    @Component({components: {FilePond}})
     export default class RegistrationForm extends Vue {
         @Prop() routeRegister!: string;
         protected name: string = '';
         protected email: string = '';
         protected password: string = '';
         protected passwordConfirmation: string = '';
+        protected avatar: string = '';
 
         protected errors: any = {};
 
+        public async updateAvatar() {
+            // @ts-ignore
+            const uploadedImage: any = await this.$refs.pond.getFiles()[0];
+            this.avatar = await uploadedImage.getFileEncodeBase64String();
+        }
 
         protected async registerUser() {
             try {
@@ -131,4 +150,6 @@
 </script>
 
 <style lang="scss" scoped>
+    @import '../../../node_modules/filepond/dist/filepond.min.css';
+    @import '../../../node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 </style>
