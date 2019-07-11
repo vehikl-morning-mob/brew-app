@@ -3,6 +3,7 @@ import {mount, Wrapper} from "@vue/test-utils";
 import * as flushPromises from 'flush-promises';
 import axios from 'axios';
 import MockAdapter from "axios-mock-adapter";
+import ImageUploader from "../ImageUploader.vue";
 
 describe('RegistrationForm', () => {
     let wrapper: Wrapper<RegistrationForm>;
@@ -15,7 +16,8 @@ describe('RegistrationForm', () => {
         wrapper = mount(RegistrationForm, {
             propsData: {
                 routeRegister: '/register',
-            }
+            },
+            stubs: ['image-uploader'],
         });
     });
 
@@ -41,6 +43,10 @@ describe('RegistrationForm', () => {
         await flushPromises();
 
         expect(wrapper.text()).toContain(emailErrorMessage);
+    });
+
+    it('Sets uploaded image as avatar', () => {
+        wrapper.find(ImageUploader).vm.$emit('image-uploaded', 'hello123');
     });
 
 });

@@ -81,12 +81,7 @@
                                 </div>
                             </div>
 
-                            <file-pond
-                                ref="pond"
-                                @addfile="updateAvatar"
-                                label-idle="Drop files here..."
-                                accepted-file-types="image/jpeg, image/png"
-                                :allow-multiple="false"/>
+                            <image-uploader @image-uploaded="updateAvatar"/>
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
@@ -109,22 +104,9 @@
 <script lang="ts">
     import {Component, Prop, Vue} from 'vue-property-decorator';
     import axios from 'axios';
-    import vueFilePond from 'vue-filepond';
-    import * as FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
-    import * as FilePondPluginImagePreview from 'filepond-plugin-image-preview';
-    import * as FilePondPluginFileEncode from 'filepond-plugin-file-encode';
+    import ImageUploader from "./ImageUploader.vue";
 
-    const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview, FilePondPluginFileEncode);
-
-    interface UploadedFile {
-        getFileEncodeBase64String: () => Promise<string>
-    }
-
-    interface FilePondUploader {
-        getFiles: () => Promise<UploadedFile[]>
-    }
-
-    @Component({components: {FilePond}})
+    @Component({components: {ImageUploader}})
     export default class RegistrationForm extends Vue {
         @Prop() routeRegister!: string;
         protected name: string = '';
@@ -134,15 +116,6 @@
         protected avatar: string = '';
 
         protected errors: any = {};
-
-        public async updateAvatar() {
-            const uploadedImage: UploadedFile = await this.filePond.getFiles()[0];
-            this.avatar = await uploadedImage.getFileEncodeBase64String();
-        }
-
-        private get filePond(): FilePondUploader {
-            return this.$refs.pond as unknown as FilePondUploader;
-        }
 
         protected async registerUser() {
             try {
@@ -157,10 +130,10 @@
                 this.errors = response.data.errors;
             }
         }
+
+        protected updateAvatar(base64Image: string): void {
+            this.avatar = base64Image;
+        }
     }
 </script>
 
-<style lang="scss" scoped>
-    @import '../../../node_modules/filepond/dist/filepond.min.css';
-    @import '../../../node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
-</style>
