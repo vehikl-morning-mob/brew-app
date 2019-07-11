@@ -116,6 +116,14 @@
 
     const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview, FilePondPluginFileEncode);
 
+    interface UploadedFile {
+        getFileEncodeBase64String: () => Promise<string>
+    }
+
+    interface FilePondUploader {
+        getFiles: () => Promise<UploadedFile[]>
+    }
+
     @Component({components: {FilePond}})
     export default class RegistrationForm extends Vue {
         @Prop() routeRegister!: string;
@@ -128,9 +136,12 @@
         protected errors: any = {};
 
         public async updateAvatar() {
-            // @ts-ignore
-            const uploadedImage: any = await this.$refs.pond.getFiles()[0];
+            const uploadedImage: UploadedFile = await this.filePond.getFiles()[0];
             this.avatar = await uploadedImage.getFileEncodeBase64String();
+        }
+
+        private get filePond(): FilePondUploader {
+            return this.$refs.pond as unknown as FilePondUploader;
         }
 
         protected async registerUser() {
