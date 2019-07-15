@@ -9,7 +9,7 @@ describe('TweetCard', () => {
         tweetPayload = {
             message: 'blah',
             userName: 'asdf',
-            avatarUrl: 'asdfasd.com'
+            avatar: 'asdfasd.com'
         };
 
         wrapper = mount(TweetCard, {
@@ -25,7 +25,7 @@ describe('TweetCard', () => {
 
     it('renders the user avatar', () => {
         const image: HTMLImageElement = wrapper.find('.user-avatar').element as HTMLImageElement;
-        expect(image.src).toContain(tweetPayload.avatarUrl);
+        expect(image.src).toContain(tweetPayload.avatar);
     });
 
     it('Renders the username', () => {

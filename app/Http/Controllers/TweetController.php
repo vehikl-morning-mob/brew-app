@@ -19,7 +19,7 @@ class TweetController extends Controller
         $allTweets = Tweet::orderBy('id', 'DESC')->get()->map(function ($tweetItem) {
             return [
                 'userName' => $tweetItem->user->name,
-                'avatarUrl' => '',
+                'avatar' => '',
                 'message' => $tweetItem->message,
             ];
         });
@@ -48,7 +48,7 @@ class TweetController extends Controller
         $newTweet = $request->user()->tweets()->create($request->validated());
         return response([
             'message' => $newTweet->message,
-            'avatarUrl' => '',
+            'avatar' => '',
             'userName' => $newTweet->user->name,
         ], Response::HTTP_CREATED);
     }

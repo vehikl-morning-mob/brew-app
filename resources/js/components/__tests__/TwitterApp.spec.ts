@@ -14,12 +14,12 @@ describe('Twitter App', () => {
     const preExistingTweets: TweetPayload[] = [
         {
             userName: 'Person A',
-            avatarUrl: 'AsAvatar.jpg',
+            avatar: 'AsAvatar.jpg',
             message: 'Person A message'
         },
         {
             userName: 'Person B',
-            avatarUrl: 'BsAvatar.jpg',
+            avatar: 'BsAvatar.jpg',
             message: 'Person B message'
         },
     ];
@@ -31,7 +31,7 @@ describe('Twitter App', () => {
             return [201, {
                 userName: 'Faker UserName',
                 message: JSON.parse(data).message,
-                avatarUrl: 'url.jpg'
+                avatar: 'url.jpg'
             }];
         });
         testApi.onGet('/tweet').reply(200, preExistingTweets);

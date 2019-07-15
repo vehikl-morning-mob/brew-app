@@ -13,7 +13,7 @@ describe('TweetFeed - Unit', () => {
             const tweetPayloads: TweetPayload[] = tweetMessages.map((message: string): TweetPayload => ({
                 message,
                 userName: 'whateverUsernameThatWeDontCareAbout',
-                avatarUrl: 'avatar.jpg'
+                avatar: 'avatar.jpg'
             }));
             wrapper = mount(TweetFeed, {
                 propsData: {

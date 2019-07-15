@@ -1,5 +1,5 @@
 export interface TweetPayload {
     userName: string;
-    avatarUrl: string;
+    avatar: string;
     message: string;
 }

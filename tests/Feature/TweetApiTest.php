@@ -35,7 +35,7 @@ class TweetApiTest extends TestCase
     {
         $response = $this->postNewTweet('hello world');
 
-        $response->assertJson(['message' => 'hello world', 'avatarUrl' => '', 'userName' => $this->user->name]);
+        $response->assertJson(['message' => 'hello world', 'avatar' => '', 'userName' => $this->user->name]);
     }
 
     public function testAGuestCannotCreateATweet()

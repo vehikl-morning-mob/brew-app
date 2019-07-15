@@ -1,7 +1,7 @@
 <template>
     <div class="tweet-card">
         <div class="border-look-alike"/>
-        <img class="user-avatar" :src="tweetPayload.avatarUrl">
+        <img class="user-avatar" :src="tweetPayload.avatar">
         <div class="name-and-message">
             <div class="user-name" v-text="tweetPayload.userName"></div>
             <div class="message-container" v-text="tweetPayload.message"></div>
