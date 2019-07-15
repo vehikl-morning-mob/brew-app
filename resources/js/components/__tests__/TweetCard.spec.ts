@@ -31,4 +31,18 @@ describe('TweetCard', () => {
     it('Renders the username', () => {
         expect(wrapper.find('.user-name').text()).toContain(tweetPayload.userName);
     });
+
+    it('Renders a default avatar image if none is provided', () => {
+
+        wrapper = mount(TweetCard, {
+            propsData: {
+                tweetPayload: {
+                    ...tweetPayload,
+                    avatar: '',
+                },
+            }
+        });
+
+        expect(wrapper.find('.user-avatar').attributes().src).toBe('storage/defaultAvatar.png');
+    });
 });

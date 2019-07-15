@@ -1,7 +1,7 @@
 <template>
     <div class="tweet-card">
         <div class="border-look-alike"/>
-        <img class="user-avatar" :src="`data:image/png;base64, ${tweetPayload.avatar}`">
+        <img class="user-avatar" :src="avatar">
         <div class="name-and-message">
             <div class="user-name" v-text="tweetPayload.userName"></div>
             <div class="message-container" v-text="tweetPayload.message"></div>
@@ -16,6 +16,14 @@
     @Component
     export default class TweetCard extends Vue {
         @Prop() protected tweetPayload!: TweetPayload;
+
+        protected get avatar(): string {
+            if (this.tweetPayload.avatar) {
+                return `data:image/png;base64, ${this.tweetPayload.avatar}`
+            }
+
+            return 'storage/defaultAvatar.png';
+        }
     }
 </script>
 
