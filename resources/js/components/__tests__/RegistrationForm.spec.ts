@@ -45,8 +45,19 @@ describe('RegistrationForm', () => {
         expect(wrapper.text()).toContain(emailErrorMessage);
     });
 
-    it('Sets uploaded image as avatar', () => {
-        wrapper.find(ImageUploader).vm.$emit('image-uploaded', 'hello123');
+    it('Sets uploaded image as avatar', async () => {
+        const userAvatar: string = 'hello123';
+        wrapper.find(ImageUploader).vm.$emit('image-uploaded', userAvatar);
+        wrapper.find('#email').setValue('t@s.alad');
+        wrapper.find('#name').setValue('tacos');
+        wrapper.find('#password').setValue('localTaco');
+        wrapper.find('#password-confirm').setValue('localTaco');
+
+        wrapper.find('#submit').trigger('click');
+        await flushPromises();
+        const registrationPayload = JSON.parse(mockServer.history.post[0].data);
+
+        expect(registrationPayload.avatar).toBe(userAvatar)
     });
 
 });

@@ -121,6 +121,7 @@
             try {
                 await axios.post(this.routeRegister, {
                     name: this.name,
+                    avatar: this.avatar,
                     email: this.email,
                     password: this.password,
                     password_confirmation: this.passwordConfirmation,
