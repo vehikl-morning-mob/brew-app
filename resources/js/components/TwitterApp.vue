@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-    import {Component, Prop, Vue} from 'vue-property-decorator';
+    import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
     import TweetInputBox from "./TweetInputBox.vue";
     import TweetFeed from "./TweetFeed.vue";
     import {TweetPayload} from "../types";
@@ -25,10 +25,10 @@
         @Prop() protected minTweetLength!: number;
 
         protected tweetPayloads: TweetPayload[] = [];
+        protected pageNumber: number = 1;
 
         private async created(): Promise<void> {
-            const existingTweets: AxiosResponse<TweetPayload[]> = await axios.get<TweetPayload[]>('/tweet')
-            this.tweetPayloads = existingTweets.data;
+            await this.getTweets();
         }
 
         protected async onNewTweetCreated(message: string): Promise<void> {
@@ -41,6 +41,12 @@
                 this.tweetPayloads.unshift(createdTweet.data);
             } catch ({response}) {
             }
+        }
+
+        @Watch('pageNumber')
+        private async getTweets(): Promise<void> {
+            const existingTweets: AxiosResponse<TweetPayload[]> = await axios.get<TweetPayload[]>(`/tweet?page=${this.pageNumber}`);
+            this.tweetPayloads = existingTweets.data;
         }
     }
 </script>

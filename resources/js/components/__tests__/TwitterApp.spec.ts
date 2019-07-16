@@ -11,21 +11,27 @@ import {TweetPayload} from "../../types";
 describe('Twitter App', () => {
     let wrapper: Wrapper<TwitterApp>;
     let testApi: MockAdapter;
-    const preExistingTweets: TweetPayload[] = [
-        {
-            userName: 'Person A',
-            avatar: 'AsAvatar.jpg',
-            message: 'Person A message'
-        },
-        {
-            userName: 'Person B',
-            avatar: 'BsAvatar.jpg',
-            message: 'Person B message'
-        },
-    ];
-    beforeEach(() => {
+    let tweetsOnPageTwo: TweetPayload[];
+    let tweetsOnPageOne: TweetPayload[];
 
+    beforeEach(() => {
         testApi = new MockAdapter(axios);
+
+        tweetsOnPageOne = Array.from({length: 12}, (_, index: number) => {
+            return {
+                userName: 'UserA',
+                avatar: 'AsAvatar.jpg',
+                message: `Page One tweet #${index}`
+            };
+        });
+
+        tweetsOnPageTwo = Array.from({length: 12}, (_, index: number) => {
+            return {
+                userName: 'UserB',
+                avatar: 'BsAvatar.jpg',
+                message: `Page Two tweet #${index}`
+            };
+        });
 
         testApi.onPost('/tweet').reply(({data}) => {
             return [201, {
@@ -34,7 +40,9 @@ describe('Twitter App', () => {
                 avatar: 'url.jpg'
             }];
         });
-        testApi.onGet('/tweet').reply(200, preExistingTweets);
+        testApi.onGet('/tweet').reply(200, tweetsOnPageOne);
+        testApi.onGet('/tweet?page=1').reply(200, tweetsOnPageOne);
+        testApi.onGet('/tweet?page=2').reply(200, tweetsOnPageTwo);
         wrapper = mount(TwitterApp, {
             propsData: {
                 maxTweetLength: 120,
@@ -107,7 +115,19 @@ describe('Twitter App', () => {
     it('Shows existing tweets', async () => {
         await flushPromises();
 
-        expect(wrapper.findAll(TweetCard).wrappers).toHaveLength(preExistingTweets.length);
+        expect(wrapper.findAll(TweetCard).wrappers).toHaveLength(tweetsOnPageOne.length);
+    });
+
+    describe('Pagination', () => {
+        it('Starts with tweets from page one', async () => {
+            await flushPromises();
+            const expectedMessages: string[] = tweetsOnPageOne.map((tweet: TweetPayload) => tweet.message);
+            const existingMessages: string[] = wrapper.findAll('.message-container').wrappers.map(
+                (wrapper) => wrapper.text()
+            );
+
+            expect(existingMessages).toEqual(expectedMessages);
+        });
     });
 });
 
