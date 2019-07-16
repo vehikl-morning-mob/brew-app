@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TweetCollection;
+use App\Http\Resources\TweetResource;
 use App\Tweet;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreTweetRequest;
@@ -16,15 +18,7 @@ class TweetController extends Controller
      */
     public function index()
     {
-        $allTweets = Tweet::orderBy('id', 'DESC')->get()->map(function ($tweetItem) {
-            return [
-                'userName' => $tweetItem->user->name,
-                'avatar' => $tweetItem->user->avatar,
-                'message' => $tweetItem->message,
-            ];
-        });
-
-        return response($allTweets, Response::HTTP_OK);
+        return response(TweetResource::collection(Tweet::orderBy('id', 'DESC')->paginate(12)), Response::HTTP_OK);
     }
 
     /**

@@ -67,7 +67,7 @@ class TweetApiTest extends TestCase
 
     public function testItGetsAllTweets()
     {
-        $numberOfTweets = 30;
+        $numberOfTweets = 5;
         factory(Tweet::class, $numberOfTweets)->create(['user_id' => $this->user->id]);
 
         $response = $this->get('/tweet');
@@ -87,6 +87,15 @@ class TweetApiTest extends TestCase
         $givenMessages = Arr::pluck($response->json(), 'message');
 
         $this->assertEquals($messagesInDescendingOrder, $givenMessages);
+    }
+
+    public function testItPaginatesTweets()
+    {
+        $tweetCountPerPage = 12;
+        factory(Tweet::class, $tweetCountPerPage * 5)->create();
+
+        $response = $this->get('/tweet');
+        $this->assertCount($tweetCountPerPage, $response->json());
     }
 
     private function postNewTweet($message): TestResponse
