@@ -14,7 +14,7 @@ describe('Twitter App', () => {
     let tweetsOnPageTwo: TweetPayload[];
     let tweetsOnPageOne: TweetPayload[];
 
-    beforeEach(() => {
+    beforeEach(async () => {
         testApi = new MockAdapter(axios);
 
         tweetsOnPageOne = Array.from({length: 12}, (_, index: number) => {
@@ -49,6 +49,8 @@ describe('Twitter App', () => {
                 minTweetLength: 1
             }
         });
+
+        await flushPromises();
     });
 
     afterEach(() => {
@@ -113,15 +115,23 @@ describe('Twitter App', () => {
     });
 
     it('Shows existing tweets', async () => {
-        await flushPromises();
-
         expect(wrapper.findAll(TweetCard).wrappers).toHaveLength(tweetsOnPageOne.length);
     });
 
     describe('Pagination', () => {
         it('Starts with tweets from page one', async () => {
-            await flushPromises();
             const expectedMessages: string[] = tweetsOnPageOne.map((tweet: TweetPayload) => tweet.message);
+            const existingMessages: string[] = wrapper.findAll('.message-container').wrappers.map(
+                (wrapper) => wrapper.text()
+            );
+
+            expect(existingMessages).toEqual(expectedMessages);
+        });
+
+        it('Shows page two tweets after clicking next button', async () => {
+            wrapper.find('#nextPage').trigger('click');
+            await flushPromises();
+            const expectedMessages: string[] = tweetsOnPageTwo.map((tweet: TweetPayload) => tweet.message);
             const existingMessages: string[] = wrapper.findAll('.message-container').wrappers.map(
                 (wrapper) => wrapper.text()
             );

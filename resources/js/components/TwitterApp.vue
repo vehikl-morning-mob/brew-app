@@ -7,6 +7,8 @@
                              @new-tweet="onNewTweetCreated"/>
         </div>
         <tweet-feed :tweet-payloads="tweetPayloads"/>
+
+        <button id="nextPage" @click="pageNumber++">Next</button>
     </div>
 </template>
 
